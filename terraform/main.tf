@@ -34,19 +34,14 @@ resource "google_project_service" "firebase_hosting" {
   service = "firebasehosting.googleapis.com"
 }
 
-# Create a Firebase Hosting site
-resource "google_firebase_hosting_site" "firebase_site" {
-  project = var.project_id
-  site_id = "poc-car-delivery-web-app"
-}
-
 resource "google_firebaserules_ruleset" "firestore_rules" {
   project = var.project_id
-  database = google_firestore_database.firestore_db.name
-  name = "firestore.rules"
 
   source {
-    content = file("${path.module}/firestore.rules")  # Read rules from file
+    files {
+      name    = "firestore.rules"
+      content = file("${path.module}/firestore.rules")
+    }
   }
 }
 
