@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = google_storage_bucket.state_bucket.name        
+    bucket = "poc-car-delivery-bucket-name"
     prefix = "terraform/state"
   }
 }
