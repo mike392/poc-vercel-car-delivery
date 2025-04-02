@@ -15,6 +15,20 @@ resource "google_project_service" "firestore" {
   service = "firestore.googleapis.com"
 }
 
+resource "google_storage_bucket" "state_bucket" {
+  name     = "poc-car-delivery-bucket-name"
+  location = "EU"
+
+  uniform_bucket_level_access = true
+  versioning {
+    enabled = true
+  }
+
+  lifecycle {
+    prevent_destroy = true               # Prevent accidental deletion of the bucket (optional)
+  }
+}
+
 # Enable Firestore in Native Mode
 resource "google_firestore_database" "firestore_db" {
   project     = var.project_id
@@ -48,10 +62,11 @@ resource "google_firebaserules_ruleset" "firestore_rules" {
 
 resource "google_firestore_document" "admin_list" {
   project     = var.project_id
+  database    = "(default)"
   collection  = "settings"
   document_id = "adminList"
 
-  fields = jsonencode({
-    emails = ["m.barsukou@gmail.com", "admin2@example.com"]
-  })
+  fields = {
+    emails = ["email1@example.com", "email2@example.com"]
+  }
 }
