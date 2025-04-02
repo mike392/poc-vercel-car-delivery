@@ -65,6 +65,13 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
+      - name: Create Firebase Web App (if not exists)
+        run: |
+          APP=$(gcloud firebase apps list --format="value(appId)" --filter="projectId:poc-car-delivery")
+          if [ -z "APP" ]; then
+            gcloud firebase apps:create WEB --display-name="POC App" --project=poc-car-delivery
+          fi
+
       - name: Deploy to Firebase Hosting (Staging)
         run: firebase deploy --only hosting --project poc-car-delivery
         working-directory: car-tracker
@@ -99,6 +106,13 @@ jobs:
         run: firebase use --add
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Create Firebase Web App (if not exists)
+        run: |
+          APP=$(gcloud firebase apps list --format="value(appId)" --filter="projectId:poc-car-delivery")
+          if [ -z "APP" ]; then
+            gcloud firebase apps:create WEB --display-name="POC App" --project=poc-car-delivery
+          fi
 
       - name: Deploy to Firebase Hosting (Production)
         run: firebase deploy --only hosting --project poc-car-delivery

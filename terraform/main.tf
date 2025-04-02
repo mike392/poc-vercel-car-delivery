@@ -28,13 +28,6 @@ resource "google_project_service" "auth" {
   service = "identitytoolkit.googleapis.com"
 }
 
-# Deploy Firebase Hosting
-resource "google_firebase_web_app" "web" {
-  provider   = google
-  project    = var.project_id
-  display_name = "POC Car Delivery"
-}
-
 # Enable Firebase Hosting
 resource "google_project_service" "firebase_hosting" {
   project = var.project_id
