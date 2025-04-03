@@ -13,11 +13,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const messaging = getMessaging(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const messaging = getMessaging(app);
 
 // Handle incoming messages
 onMessage(messaging, (payload) => {
     console.log("Notification received: ", payload);
 });
+
+export { auth, db, messaging };

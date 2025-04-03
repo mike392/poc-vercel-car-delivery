@@ -67,4 +67,8 @@ resource "google_firestore_document" "admin_list" {
   document_id = "adminList"
 
   fields = "{ \"emails\": { \"array_value\": { \"values\": [{ \"string_value\":\"email1@example.com\"}, {\"string_value\":\"m.barsukou@gmail.com\"}]}}}"
+
+  lifecycle {
+    ignore_changes = [fields]
+  }
 }

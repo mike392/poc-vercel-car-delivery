@@ -1,46 +1,55 @@
 "use client";
 
-import { useState } from "react";
-import { auth, db } from "../firebase";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import {FormEvent, useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
+import {Auth, UserCredential} from "@firebase/auth";
+import {DocumentData, DocumentReference, DocumentSnapshot, Firestore} from "@firebase/firestore";
 
 interface Admins {
     emails: string[]
 }
+
+let auth: Auth, db: Firestore, signInWithEmailAndPassword: (auth: Auth, email: string, password: string) => Promise<UserCredential>,
+    doc: (firestore: Firestore, path: string, ...pathSegments: string[]) => DocumentReference<DocumentData, DocumentData>,
+    getDoc: (reference: DocumentReference) => Promise<DocumentSnapshot>;
 
 export default function Page() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
 
-    const handleLogin = async (e) => {
+    useEffect(() => {
+        import("../firebase").then(async fb => {
+            db = fb.db;
+            auth = fb.auth;
+            signInWithEmailAndPassword = (await import("firebase/auth")).signInWithEmailAndPassword;
+            doc = (await import("firebase/firestore")).doc;
+            getDoc = (await import("firebase/firestore")).getDoc;
+        });
+    }, []);
+
+
+    const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
 
-        try {
-            // Step 1: Get admin list from Firestore
-            const docRef = doc(db, "settings", "adminList");
-            const docSnap = await getDoc(docRef);
+        // Step 1: Get admin list from Firestore
+        const docRef = doc(db, "settings", "adminList");
+        const docSnap = await getDoc(docRef);
 
-            if (!docSnap.exists()) {
-                alert("Admin list not found.");
-                return;
-            }
-
-            const allowedAdmins = (docSnap.data() as Admins).emails || [];
-            if (!allowedAdmins.includes(email)) {
-                alert("Access Denied: You are not an authorized admin.");
-                return;
-            }
-
-            // Step 2: Proceed with Firebase Auth Login
-            await signInWithEmailAndPassword(auth, email, password);
-            router.push("/admin-dashboard");
-
-        } catch (error) {
-            alert("Login failed: " + error.message);
+        if (!docSnap.exists()) {
+            alert("Admin list not found.");
+            return;
         }
+
+        const allowedAdmins = (docSnap.data() as Admins).emails || [];
+        if (!allowedAdmins.includes(email)) {
+            alert("Access Denied: You are not an authorized admin.");
+            return;
+        }
+
+        // Step 2: Proceed with Firebase Auth Login
+        await signInWithEmailAndPassword(auth, email, password);
+        router.push("/admin-dashboard");
     };
 
     return (

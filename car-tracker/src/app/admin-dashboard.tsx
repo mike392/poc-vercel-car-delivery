@@ -1,15 +1,16 @@
-import { useState, useEffect } from "react";
-import { db, auth } from "../firebase";
+import {useState, useEffect} from "react";
+import { db } from "./firebase";
 import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import {Car} from "@poc-car-tracker/app/model/types";
 
 export default function AdminDashboard() {
     const [carId, setCarId] = useState("");
     const [checkpoint, setCheckpoint] = useState("");
-    const [cars, setCars] = useState([]);
+    const [cars, setCars] = useState<Car[]>([]);
 
     useEffect(() => {
         const unsub = onSnapshot(collection(db, "cars"), (snapshot) => {
-            setCars(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            setCars(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Car)));
         });
         return () => unsub();
     }, []);
@@ -29,7 +30,7 @@ export default function AdminDashboard() {
 
     <h2 className="text-xl mt-6">Cars:</h2>
     {cars.map(car => (
-        <div key={car.id} className="border p-2 my-2">{car.carId} - {car.checkpoint}</div>
+        <div key={car.id} className="border p-2 my-2">{car.carId} - {car.checkpoint.checkpoint}</div>
     ))}
     </div>
 );
