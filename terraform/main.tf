@@ -30,12 +30,12 @@ resource "google_storage_bucket" "state_bucket" {
 }
 
 # Enable Firestore in Native Mode
-resource "google_firestore_database" "firestore_db" {
-  project     = var.project_id
-  name        = "(default)"
-  location_id = var.region
-  type        = "FIRESTORE_NATIVE"
-}
+#resource "google_firestore_database" "firestore_db" {
+#  project     = var.project_id
+#  name        = "(default)"
+#  location_id = var.region
+#  type        = "FIRESTORE_NATIVE"
+#}
 
 # Enable Firebase Authentication
 resource "google_project_service" "auth" {
