@@ -65,6 +65,7 @@ data "external" "firestore_check" {
 }
 
 resource "google_firestore_document" "admin_list" {
+  depends_on = [data.external.firestore_check]
   count =  data.external.firestore_check.result["status"] == "found" ? 0 : 1
   project     = var.project_id
   database    = "(default)"
