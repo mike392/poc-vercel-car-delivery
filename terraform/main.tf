@@ -60,7 +60,12 @@ resource "google_firebaserules_ruleset" "firestore_rules" {
   }
 }
 
+data "external" "firestore_check" {
+  program = ["bash", "${path.module}/check_firestore.sh"]
+}
+
 resource "google_firestore_document" "admin_list" {
+  count = data.external.firestore_check.result.exists ? 0 : 1
   project     = var.project_id
   database    = "(default)"
   collection  = "settings"
