@@ -98,8 +98,8 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
-        run: npm install
-        working-directory: car-tracker
+        run: npm install --force
+        working-directory: ./car-tracker
 
       - name: Build Next.js App
         run: npm run build
