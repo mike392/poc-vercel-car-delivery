@@ -74,9 +74,29 @@ jobs:
 
       - name: Create Firebase Web App (if not exists)
         run: |
-          APP=$(gcloud beta firebase apps list --format="value(appId)" --filter="projectId:poc-car-delivery")
-          if [ -z "APP" ]; then
-            gcloud firebase apps:create WEB --display-name="POC App" --project=poc-car-delivery
+          PROJECT_ID="poc-car-delivery"
+          SERVICE_ACCOUNT_KEY=$(echo '${{ secrets.FIREBASE_TOKEN }}' | base64 --decode)
+          
+          # Get OAuth Token
+          ACCESS_TOKEN=$(curl -s -X POST -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
+            "https://oauth2.googleapis.com/token" \
+            --data "$(echo $SERVICE_ACCOUNT_KEY)" | jq -r '.access_token')
+          
+          # Check if Firebase Web App Exists
+          RESPONSE=$(curl -s -X GET \
+            -H "Authorization: Bearer $ACCESS_TOKEN" \
+            "https://firebase.googleapis.com/v1beta1/projects/$PROJECT_ID/webApps")
+          
+          if echo "$RESPONSE" | grep -q '"webApps": \[\]'; then
+            echo "No Firebase Web App found. Creating one..."
+            curl -s -X POST \
+              -H "Authorization: Bearer $ACCESS_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{}' \
+              "https://firebase.googleapis.com/v1beta1/projects/$PROJECT_ID/webApps"
+          else
+            echo "Firebase Web App already exists."
           fi
 
       - name: Deploy to Firebase Hosting (Staging)
