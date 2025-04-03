@@ -56,12 +56,12 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
-        run: npm install
-        working-directory: car-tracker
+        run: npm install --force
+        working-directory: ./car-tracker
 
       - name: Build Next.js App
         run: npm run build
-        working-directory: car-tracker
+        working-directory: ./car-tracker
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
@@ -80,7 +80,7 @@ jobs:
 
       - name: Deploy to Firebase Hosting (Staging)
         run: firebase deploy --only hosting --project poc-car-delivery
-        working-directory: car-tracker
+        working-directory: ./car-tracker
 
   # Job for deploying to production when changes are pushed to main
   production-deploy:
@@ -103,7 +103,7 @@ jobs:
 
       - name: Build Next.js App
         run: npm run build
-        working-directory: car-tracker
+        working-directory: ./car-tracker
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
@@ -122,4 +122,4 @@ jobs:
 
       - name: Deploy to Firebase Hosting (Production)
         run: firebase deploy --only hosting --project poc-car-delivery
-        working-directory: car-tracker
+        working-directory: ./car-tracker
