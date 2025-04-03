@@ -15,19 +15,19 @@ resource "google_project_service" "firestore" {
   service = "firestore.googleapis.com"
 }
 
-resource "google_storage_bucket" "state_bucket" {
-  name     = "poc-car-delivery-bucket-name"
-  location = "EU"
-
-  uniform_bucket_level_access = true
-  versioning {
-    enabled = true
-  }
-
-  lifecycle {
-    prevent_destroy = true               # Prevent accidental deletion of the bucket (optional)
-  }
-}
+#resource "google_storage_bucket" "state_bucket" {
+#  name     = "poc-car-delivery-bucket-name"
+#  location = "EU"
+#
+#  uniform_bucket_level_access = true
+#  versioning {
+#    enabled = true
+#  }
+#
+#  lifecycle {
+#    prevent_destroy = true               # Prevent accidental deletion of the bucket (optional)
+#  }
+#}
 
 # Enable Firestore in Native Mode
 #resource "google_firestore_database" "firestore_db" {
