@@ -99,6 +99,14 @@ jobs:
             echo "Firebase Web App already exists."
           fi
 
+      - name: Export GCP Credentials for Firebase
+        run: echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > /tmp/gcp-key.json
+
+      - name: Set GOOGLE_APPLICATION_CREDENTIALS
+        run: |
+          gcloud auth activate-service-account --key-file=/tmp/gcp-key.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json" >> $GITHUB_ENV
+
       - name: Deploy to Firebase Hosting (Staging)
         run: firebase deploy --only hosting --project poc-car-delivery
         working-directory: ./car-tracker
