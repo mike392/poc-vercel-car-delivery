@@ -64,9 +64,16 @@ data "external" "firestore_check" {
   program = ["bash", "${path.module}/check_firestore.sh"]
 }
 
+#data "google_firestore_document" "admin_list_check" {
+#  project     = var.project_id
+#  database    = "(default)"
+#  collection  = "settings"
+#  document_id = "adminList"
+#}
+
 resource "google_firestore_document" "admin_list" {
-  depends_on = [data.external.firestore_check]
-  count =  data.external.firestore_check.result["status"] == "found" ? 1 : 0
+  depends_on  = [data.external.firestore_check]
+  count       = data.external.firestore_check.result.status == "found" ? 1 : 0
   project     = var.project_id
   database    = "(default)"
   collection  = "settings"
