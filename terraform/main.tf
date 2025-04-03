@@ -66,5 +66,5 @@ resource "google_firestore_document" "admin_list" {
   collection  = "settings"
   document_id = "adminList"
 
-  fields = "{ \"emails\": [\"email1@example.com\", \"m.barsukou@gmail.com\"]}"
+  fields = "{ \"emails\": { \"array_value\": { \"values\": [\"email1@example.com\", \"m.barsukou@gmail.com\"]}}}"
 }
