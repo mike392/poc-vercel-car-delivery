@@ -70,6 +70,7 @@ jobs:
         run: firebase use --add
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        working-directory: ./car-tracker
 
       - name: Create Firebase Web App (if not exists)
         run: |
@@ -112,6 +113,7 @@ jobs:
         run: firebase use --add
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        working-directory: ./car-tracker
 
       - name: Create Firebase Web App (if not exists)
         run: |
