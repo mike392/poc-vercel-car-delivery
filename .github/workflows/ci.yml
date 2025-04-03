@@ -75,7 +75,7 @@ jobs:
       - name: Create Firebase Web App (if not exists)
         run: |
           PROJECT_ID="poc-car-delivery"
-          SERVICE_ACCOUNT_KEY=$(echo '${{ secrets.FIREBASE_TOKEN }}' | base64 --decode)
+          SERVICE_ACCOUNT_KEY=$(echo '${{ secrets.FIREBASE_TOKEN }}')
           
           # Get OAuth Token
           ACCESS_TOKEN=$(curl -s -X POST -H "Content-Type: application/json" \
