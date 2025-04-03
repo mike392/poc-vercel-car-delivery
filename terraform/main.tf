@@ -66,12 +66,5 @@ resource "google_firestore_document" "admin_list" {
   collection  = "settings"
   document_id = "adminList"
 
-  fields = {
-    emails = jsonencode({
-      values = [
-        { string_value = "email1@example.com" },
-        { string_value = "m.barsukou@gmail.com" }
-      ]
-    })
-  }
+  fields = "{ \"emails\": [\"email1@example.com\", \"m.barsukou@gmail.com\"]}"
 }
