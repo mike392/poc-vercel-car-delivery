@@ -2,7 +2,7 @@
 DOCUMENT_NAME="projects/poc-car-delivery/databases/(default)/documents/settings/adminList"
 echo 'HELLLOOOOO'
 if gcloud firestore documents describe "$DOCUMENT_NAME" --format="json" > /dev/null 2>&1; then
-    echo '{"exists": "true"}'
+    echo '{"status": "found"}'
 else
-    echo '{"exists": "false"}'
+    echo '{"status": "not_found"}'
 fi
