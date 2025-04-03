@@ -74,7 +74,7 @@ jobs:
 
       - name: Create Firebase Web App (if not exists)
         run: |
-          APP=$(gcloud firebase apps list --format="value(appId)" --filter="projectId:poc-car-delivery")
+          APP=$(gcloud beta firebase apps list --format="value(appId)" --filter="projectId:poc-car-delivery")
           if [ -z "APP" ]; then
             gcloud firebase apps:create WEB --display-name="POC App" --project=poc-car-delivery
           fi
@@ -117,7 +117,7 @@ jobs:
 
       - name: Create Firebase Web App (if not exists)
         run: |
-          APP=$(gcloud firebase apps list --format="value(appId)" --filter="projectId:poc-car-delivery")
+          APP=$(gcloud beta firebase apps list --format="value(appId)" --filter="projectId:poc-car-delivery")
           if [ -z "APP" ]; then
             gcloud firebase apps:create WEB --display-name="POC App" --project=poc-car-delivery
           fi
