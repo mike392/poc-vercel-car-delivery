@@ -1,14 +1,30 @@
 "use client";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {getDocs} from "@firebase/firestore";
+import {db} from "@poc-car-tracker/app/firebase";
+import {collection, query, where} from "firebase/firestore";
 
 export default function Home() {
     const [carId, setCarId] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
 
-    const handleTrackCar = () => {
+    const handleTrackCar = async () => {
         if (!carId) return alert("Please enter a Car ID");
-        router.push(`/track/${carId}`);
+        // Check if car exists in the database
+        const carsCollectionRef = collection(db, "cars");
+        const q = query(carsCollectionRef, where("carId", "==", carId));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            // If car exists, navigate to the track page
+            setErrorMessage(""); // Clear any previous error message
+            router.push(`/track/${carId}`);
+        } else {
+            // If car does not exist, show an error message
+            setErrorMessage("Car not found. Please check the Car ID.");
+        }
     };
 
     const navigateToAdminLogin = () => {
@@ -33,6 +49,12 @@ export default function Home() {
                     Track Car
                 </button>
             </div>
+
+            {errorMessage && (
+                <div className="mt-4 text-red-500">
+                    {errorMessage}
+                </div>
+            )}
             <div className="mt-6">
                 <button onClick={navigateToAdminLogin} className="px-4 py-2 bg-gray-800 text-white rounded">Admin
                     Console

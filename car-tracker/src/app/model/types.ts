@@ -1,17 +1,19 @@
-import {Firestore} from "@firebase/firestore";
+import {Firestore, Timestamp} from "@firebase/firestore";
 import {Auth} from "@firebase/auth";
 import {Messaging} from "@firebase/messaging";
 
 export interface Car {
     id: string;
     carId: string;
-    checkpoint: Checkpoint;
+    name: string;
+    checkpoints: Checkpoint[];
+    createdAt: Timestamp;
 }
 
 export interface Checkpoint {
     id: string;
     checkpoint: string;
-    timestamp: Date;
+    timestamp: Timestamp;
 }
 
 export interface FirebaseComponent {
