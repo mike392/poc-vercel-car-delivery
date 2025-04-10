@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getMessaging, onMessage } from "firebase/messaging";
+// import { getMessaging, onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -20,16 +20,16 @@ const provider = new GoogleAuthProvider();
 export { auth, db, provider };
 
 // Lazy messaging
-export const getMessagingIfSupported = async () => {
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-        const { getMessaging, onMessage } = await import("firebase/messaging");
-        const messaging = getMessaging(app);
-
-        onMessage(messaging, (payload) => {
-            console.log("Notification received: ", payload);
-        });
-
-        return messaging;
-    }
-    return null;
-};
+// export const getMessagingIfSupported = async () => {
+//     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+//         const { getMessaging, onMessage } = await import("firebase/messaging");
+//         const messaging = getMessaging(app);
+//
+//         onMessage(messaging, (payload) => {
+//             console.log("Notification received: ", payload);
+//         });
+//
+//         return messaging;
+//     }
+//     return null;
+// };

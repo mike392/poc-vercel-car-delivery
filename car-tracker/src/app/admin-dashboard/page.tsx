@@ -9,7 +9,7 @@ import {useRouter} from "next/navigation";
 import {onAuthStateChanged, User} from "@firebase/auth";
 
 export default function Page() {
-    const [_, setUser] = useState<User | null>(null);
+    const [, setUser] = useState<User | null>(null);
     const [carId, setCarId] = useState("");
     const [newCarName, setNewCarName] = useState("");
     const [cars, setCars] = useState<Car[]>([]);

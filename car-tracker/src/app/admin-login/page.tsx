@@ -34,9 +34,14 @@ export default function Page() {
             }
 
             router.push("/admin-dashboard");
-        } catch (err: any) {
-            console.error(err);
-            alert("Login failed.");
+        } catch (err: unknown) {
+            // You can check if err is an instance of Error
+            if (err instanceof Error) {
+                console.error(err.message);
+            } else {
+                console.error("An unknown error occurred");
+            }
+            alert("Login failed.")
         } finally {
             setLoading(false);
         }
