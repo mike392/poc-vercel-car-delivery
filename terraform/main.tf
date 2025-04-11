@@ -85,3 +85,13 @@ resource "google_firestore_document" "admin_list" {
     ignore_changes = [fields]
   }
 }
+
+resource "google_project_service" "cloud_functions" {
+  project = var.project_id
+  service = "cloudfunctions.googleapis.com"
+}
+
+resource "google_project_service" "cloud_build" {
+  project = var.project_id
+  service = "cloudbuild.googleapis.com"
+}
