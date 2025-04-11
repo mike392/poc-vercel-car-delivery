@@ -2,15 +2,14 @@ import {getCarData} from "@poc-car-tracker/app/service/getCarData";
 
 
 interface Props {
-    params: {
-        carId: string;
-    };
+    params: Promise<{ carId: string }>;
 }
 
 export default async function TrackCar({ params }: Props) {
+    debugger;
     const { carId } = await params;
     const car = await getCarData(carId);
-    const { checkpoints} = car;
+    const { checkpoints } = car ?? { checkpoints: [] };
 
     return (
         <div className="p-6">

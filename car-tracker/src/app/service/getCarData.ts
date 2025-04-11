@@ -1,10 +1,11 @@
 import { db } from "../firebase";
 import {collection, limit, query, where} from "firebase/firestore";
 import {getDocs} from "@firebase/firestore";
+import {Car} from "@poc-car-tracker/app/model/types";
 
-export async function getCarData(carId: string) {
+export async function getCarData(carId: string): Promise<Car | null> {
     if (!carId) {
-        return {};
+        return null;
     }
     const carsRef = collection(db, "cars");
     const q = query(carsRef, where("carId", "==", carId), limit(1));
@@ -15,5 +16,5 @@ export async function getCarData(carId: string) {
     }
 
     const doc = snapshot.docs[0];
-    return { id: doc.id, ...doc.data() };
+    return { id: doc.id, ...doc.data() } as Car;
 }
