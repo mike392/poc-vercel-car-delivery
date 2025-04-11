@@ -4,7 +4,13 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": ".next",
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/**",
+        "function": "nextjs"
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -16,5 +22,8 @@
   },
   "remoteconfig": {
     "template": "remoteconfig.template.json"
+  },
+  "functions": {
+    "source": "functions"
   }
 }

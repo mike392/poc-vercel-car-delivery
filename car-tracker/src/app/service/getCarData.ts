@@ -1,0 +1,19 @@
+import { db } from "../firebase";
+import {collection, limit, query, where} from "firebase/firestore";
+import {getDocs} from "@firebase/firestore";
+
+export async function getCarData(carId: string) {
+    if (!carId) {
+        return {};
+    }
+    const carsRef = collection(db, "cars");
+    const q = query(carsRef, where("carId", "==", carId), limit(1));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+        return null;
+    }
+
+    const doc = snapshot.docs[0];
+    return { id: doc.id, ...doc.data() };
+}
