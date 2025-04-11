@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default async function TrackCar({ params }: Props) {
-    debugger;
     const { carId } = await params;
     const car = await getCarData(carId);
     const { checkpoints} = car;
