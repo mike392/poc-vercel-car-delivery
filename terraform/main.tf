@@ -79,17 +79,20 @@ resource "google_firestore_document" "admin_list" {
   collection  = "settings"
   document_id = "adminList"
 
-  fields = jsonencode({
-    "emails": {
-      "array_value":
-        { "values":
-          [
-            { "string_value": "dsaskavets@gmail.com" },
-            { "string_value": "m.barsukou@gmail.com" }
-          ]
-        }
-    }})
-  }
+  fields = jsonencode(<<EOF
+    {
+      "emails": {
+        "array_value":
+          { "values":
+            [
+              { "string_value": "dsaskavets@gmail.com" },
+              { "string_value": "m.barsukou@gmail.com" }
+            ]
+          }
+      }
+    }
+    EOF
+  )
 
   lifecycle {
     ignore_changes = [fields]
