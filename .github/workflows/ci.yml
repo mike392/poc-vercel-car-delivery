@@ -55,6 +55,11 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Authenticate with npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        working-directory: ./car-tracker
+
       - name: Install Dependencies
         run: |
           npm install --force

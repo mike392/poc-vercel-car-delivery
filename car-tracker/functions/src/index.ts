@@ -1,3 +1,5 @@
+import path from "node:path";
+
 const functions = require('firebase-functions');
 const next = require('next');
 // import { NextApiRequest, NextApiResponse } from "next";
@@ -10,7 +12,7 @@ admin.initializeApp();
 
 const nextApp = next({
     dev: false,  // Change to `true` for development
-    dir: '../../.next',   // The directory of your Next.js app
+    dir: path.join(__dirname, '../'),   // The directory of your Next.js app
 });
 
 const handle = nextApp.getRequestHandler();

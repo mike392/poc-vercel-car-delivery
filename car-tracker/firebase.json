@@ -24,6 +24,6 @@
     "template": "remoteconfig.template.json"
   },
   "functions": {
-    "source": "functions/dist"
+    "source": "functions"
   }
 }
