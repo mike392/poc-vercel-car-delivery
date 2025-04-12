@@ -3,8 +3,10 @@
     "target": "es2020",
     "module": "commonjs",
     "outDir": "./dist",
+    "rootDir": "./src",
     "esModuleInterop": true,
     "strict": true
   },
-  "include": ["index.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
