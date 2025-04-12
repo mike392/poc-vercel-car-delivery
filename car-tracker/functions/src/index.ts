@@ -8,7 +8,7 @@ admin.initializeApp();
 
 const nextApp = next({
     dev: false,
-    dir: path.join(__dirname, '../'),
+    dir: '../.next',
 });
 const handle = nextApp.getRequestHandler();
 
