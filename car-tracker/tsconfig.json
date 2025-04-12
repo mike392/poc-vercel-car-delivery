@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@poc-car-tracker/*": ["./src/*"]
+      "@poc-car-tracker/*": ["./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
