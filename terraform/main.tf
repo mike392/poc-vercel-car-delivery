@@ -93,10 +93,10 @@ resource "google_firestore_document" "admin_list" {
     }
     EOF
   )
-
-  lifecycle {
-    ignore_changes = [fields]
-  }
+#
+#  lifecycle {
+#    ignore_changes = [fields]
+#  }
 }
 
 resource "google_project_service" "cloud_functions" {
