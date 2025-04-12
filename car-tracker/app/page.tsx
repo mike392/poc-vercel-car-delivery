@@ -4,7 +4,7 @@ import "./globals.css";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {getDocs} from "@firebase/firestore";
-import {db} from "@poc-car-tracker/app/firebase";
+import {db} from "@poc-car-tracker/firebase";
 import {collection, query, where} from "firebase/firestore";
 
 export default function Home() {

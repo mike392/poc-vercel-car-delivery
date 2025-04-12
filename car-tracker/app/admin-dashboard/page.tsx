@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react";
 import {auth, db} from "../firebase";
 import {addDoc, arrayUnion, collection, onSnapshot, updateDoc} from "firebase/firestore";
-import {Car} from "@poc-car-tracker/app/model/types";
+import {Car} from "@poc-car-tracker/model/types";
 import {doc} from "@firebase/firestore";
 import {useRouter} from "next/navigation";
 import {onAuthStateChanged, User} from "@firebase/auth";

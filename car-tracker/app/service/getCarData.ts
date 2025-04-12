@@ -1,7 +1,7 @@
 import { db } from "../firebase";
 import {collection, limit, query, where} from "firebase/firestore";
 import {getDocs} from "@firebase/firestore";
-import {Car} from "@poc-car-tracker/app/model/types";
+import {Car} from "@poc-car-tracker/model/types";
 
 export async function getCarData(carId: string): Promise<Car | null> {
     if (!carId) {

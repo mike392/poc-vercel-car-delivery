@@ -1,4 +1,4 @@
-import {getCarData} from "@poc-car-tracker/app/service/getCarData";
+import {getCarData} from "@poc-car-tracker/service/getCarData";
 
 
 interface Props {

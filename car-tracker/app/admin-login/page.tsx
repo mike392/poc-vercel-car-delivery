@@ -4,7 +4,7 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {signInWithPopup} from "@firebase/auth";
 import {doc, getDoc} from "@firebase/firestore";
-import {auth, db, provider} from "@poc-car-tracker/app/firebase";
+import {auth, db, provider} from "@poc-car-tracker/firebase";
 
 interface Admins {
     emails: string[]
