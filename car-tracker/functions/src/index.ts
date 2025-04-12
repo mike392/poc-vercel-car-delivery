@@ -10,7 +10,7 @@ admin.initializeApp();
 
 const nextApp = next({
     dev: false,  // Change to `true` for development
-    dir: '.next',   // The directory of your Next.js app
+    dir: '../../.next',   // The directory of your Next.js app
 });
 
 const handle = nextApp.getRequestHandler();
