@@ -72,6 +72,9 @@ jobs:
           echo "NEXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}" >> .env
           echo "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}" >> .env
           npm run build && cp -r .next ./functions/.next
+          if [ ! -f ./functions/.next/server/font-manifest.json ]; then
+            echo "{}" > ./functions/.next/server/font-manifest.json
+          fi
           cd functions
           npm run build
         working-directory: ./car-tracker
