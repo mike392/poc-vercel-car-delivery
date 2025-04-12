@@ -1,0 +1,29 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": ".next",
+    "rewrites": [
+      {
+        "source": "/**",
+        "function": "nextjs"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "N"
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
+  },
+  "functions": {
+    "source": "functions"
+  }
+}

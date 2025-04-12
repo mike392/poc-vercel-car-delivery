@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 🚗 Allow public read access to car tracking details
+    match /cars/{carId} {
+      allow read: if true;  // ✅ Public access (no auth required)
+      allow write: if request.auth.token.email in get(/databases/$(database)/documents/settings/adminList).data.emails;
+    }
+
+    // 🔒 Admin-only access for the Admin Console settings
+    match /settings/adminList {
+      allow read, write: if request.auth.token.email in get(/databases/$(database)/documents/settings/adminList).data.emails;
+    }
+  }
+}
