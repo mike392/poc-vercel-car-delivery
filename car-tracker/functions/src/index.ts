@@ -17,7 +17,7 @@ const nextApp = next({
 
 const handle = nextApp.getRequestHandler();
 
-exports.nextjs = functions.https.onRequest((req: Request, res: Response) => {
+exports.nextjs = functions.region('europe-west1').https.onRequest((req: Request, res: Response) => {
     return nextApp.prepare().then(() => {
         handle(req, res);
     });
